@@ -180,19 +180,6 @@ from keras.models import Sequential
 from keras.layers import SimpleRNN, Activation, Dense
 from keras.layers import Input, Dense, Masking, LSTM, Bidirectional
 
-TIME_STEPS = max_length  # same as the height of the image
-INPUT_SIZE = 200  # same as the width of the image
-OUTPUT_SIZE = 10
-CELL_SIZE = 100
-BATCH_SIZE = 16
-LR = 0.01
-epoche = 50 # 训练50轮
-
-# build RNN model
-from attention_lstm import model_attention_applied_after_lstm
-
-model = model_attention_applied_after_lstm(TIME_STEPS, INPUT_SIZE, OUTPUT_SIZE)
-
 from keras import metrics
 from keras import backend as K
 
@@ -225,6 +212,19 @@ def f1(y_true, y_pred):
     precision = precision(y_true, y_pred)
     recall = recall(y_true, y_pred)
     return 2*((precision*recall)/(precision+recall+K.epsilon()))
+
+TIME_STEPS = max_length  # same as the height of the image
+INPUT_SIZE = 200  # same as the width of the image
+OUTPUT_SIZE = 10
+CELL_SIZE = 100
+BATCH_SIZE = 16
+LR = 0.01
+epoche = 50 # 训练50轮
+
+# build RNN model
+from attention_lstm import model_attention_applied_after_lstm
+
+model = model_attention_applied_after_lstm(TIME_STEPS, INPUT_SIZE, OUTPUT_SIZE)
 
 # optimizer
 model.compile(optimizer='adam',
